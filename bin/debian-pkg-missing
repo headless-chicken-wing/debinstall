@@ -1,10 +1,12 @@
-#!/bin/env
+#!/usr/bin/env bash
+set -e
 
 # Returns true if any of the named packages are missing from the system (or false if they're all there).
 
 for pkg in "$@"; do
   if ! apt info "$pkg" &>/dev/null; then
-    exit 0
+    exit 0; else
+    exit $?
   fi
 done
 

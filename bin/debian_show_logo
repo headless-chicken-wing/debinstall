@@ -18,8 +18,8 @@ source /dev/stdin <<<$(curl -fsSL https://raw.githubusercontent.com/headless-chi
 
 #echo -e "\033[32m"
 #/usr/bin/cat <~/repos/debinstall/logo.txt
-/usr/bin/bat -p -P "~/repos/debinstall/logo.txt"
+#/usr/bin/bat -p -P "~/repos/debinstall/logo.txt"
 #echo -e "\033[0m"
 #echo
-msg_ok "Success!"
+msg_ok "$(/usr/bin/cat ~/repos/debinstall/logo.txt)"
 didrun

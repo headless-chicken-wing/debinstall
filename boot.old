@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Set install mode to online since boot.sh is used for curl installations
 export DEBIAN_ONLINE_INSTALL=true
-export 
+
 source /dev/stdin <<<$(curl -fsSL https://raw.githubusercontent.com/headless-chicken-wing/debinstall/refs/heads/main/functions/functions.func)
 
 header_info() {

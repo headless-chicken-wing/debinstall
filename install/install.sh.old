@@ -3,6 +3,17 @@ set -e
 
 source /dev/stdin <<<$(curl -fsSL https://raw.githubusercontent.com/headless-chicken-wing/debinstall/refs/heads/main/functions/functions.func
 
+YW="\033[33m"
+BL="\033[36m"
+RD="\033[01;31m"
+BGN="\033[4;92m"
+GN="\033[1;92m"
+DGN="\033[32m"
+CL="\033[m"
+CM="${GN}✓${CL}"
+CROSS="${RD}✗${CL}"
+BFR="\\r\\033[K"
+
 dependencies=(
 #	'adduser'
 #	'bashacks'
