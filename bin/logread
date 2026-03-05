@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+/usr/bin/bat --color=auto -l perl -p -P $1

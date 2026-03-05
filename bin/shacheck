@@ -1,0 +1,35 @@
+#!/usr/bin/bash
+
+iso="$(echo *.iso)"
+sha="$(echo *.sha???*)"
+
+echo "Analyzing files in $PWD..."
+echo
+echo "Found $sha..."
+echo 
+echo "Found $iso..."
+echo 
+echo "Using shasum found inside '$sha'..."
+
+echo "Calculating shasum for '$iso'..."
+
+
+#sha256sum *.iso | cut --delimiter=" " --fields=1; cat proxmox.sha256sum | cut --delimiter=" " --fields=1
+
+echo
+iso_sum="$(sha256sum *.iso | cut --delimiter=" " --fields=1)"
+echo
+echo "Calculated Iso shasum is: $iso_sum"
+sha_sum="$(cat *.sha* | cut --delimiter=" " --fields=1)"
+echo "Provided shasum found is: $sha_sum"
+echo
+if [ "$iso_sum" = "$sha_sum" ]; then
+    echo "Shasums match and pass 256-bit encryption checksums"
+else
+    echo "WARNING!!! SHASUMS DO NOT MATCH!!! WARNGING"
+fi
+
+echo
+
+echo "Goodbye $USER"
+#sha256sum *.iso | cut --delimiter=  --fields=1; cat proxmox.sha256sum | cut --delimiter=  --fields=1

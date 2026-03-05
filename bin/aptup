@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+YW="\033[33m"
+BL="\033[36m"
+RD="\033[01;31m"
+BGN="\033[4;92m"
+GN="\033[1;92m"
+DGN="\033[32m"
+CL="\033[m"
+CM="${GN}✓${CL}"
+CROSS="${RD}✗${CL}"
+BFR="\\r\\033[K"
+
+msg_info() {
+  local msg="$1"
+  echo -e "${YW}${msg}${CL}"
+}
+
+msg_ok() {
+  local msg="$1"
+  echo -e "${BFR} ${CM} ${GN}${msg}${CL}"
+}
+
+msg_error() {
+  local msg="$1"
+  echo -e "${BFR} ${CROSS} ${RD}${msg}${CL}"
+}
+
+didrun()
+ {
+   local code="$?"
+   if [[ ${code} -ne "0" ]]; then
+   msg_error "Exit error ${code}"; elif
+   [[ ${code} -eq "0" ]]; then
+   msg_ok "Exit Ok"
+   fi
+ }
+
+get_updates()
+  {
+     msg_info "Getting repository updates..." && sleep 4
+     apt-get update &> /dev/null && msg_ok "Apt repositories have been updated..."
+  }
+
+get_upgrades()
+  {
+     msg_info "Getting repository upgrades now......" && sleep 4
+     msg_info "Please be patient while upgrades are being installed on your system...."
+     apt-get upgrade -yy &> /dev/null && msg_ok "All upgrades have been installed..."
+  }
+
+get_updates && didrun || exit $(didrun)
+sleep 2
+get_upgrades && didrun || exit $(didrun)
+
+set +e
+
+exit 0
+

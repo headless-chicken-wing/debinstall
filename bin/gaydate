@@ -1,0 +1,26 @@
+#!/usr/bin/bash
+
+
+#!/bin/bash
+
+echo
+
+user_host_info="This bashingly glorious terminal has been brought to you by:"
+user_info="$user_host_info $USER@$HOSTNAME"
+date_info=$(date)
+
+echo "$user_info" | toilet -F border -f term --gay
+echo "########################################################################" | toilet -f term --metal
+echo "                     $date_info                    " | toilet -F border -f term --gay
+
+
+echo
+
+#say="This bashingly glorious terminal has been brought to you by:"
+#echo "$say" "$USER"@"$HOSTNAME" | toilet -F border -f term --gay
+#unset say
+#
+#echo " ########################################################################" | toilet -f term --metal
+#echo "                     $(date)                    " | toilet -F border -f term --gay
+echo
+
