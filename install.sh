@@ -278,7 +278,7 @@ echo
 msg_info "Welcome to the setup utility for ${PRETTY_NAME}"
 echo
 
-read -rp "  This script will configure a new user environment. Start now? [y/N]: " start_answer
+read -rp "  This script will configure a new user environment. Start now? [y/N]: " start_answer </dev/tty
 #start_answer="${start_answer,,}"
 echo
 
