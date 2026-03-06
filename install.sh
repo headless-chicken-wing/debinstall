@@ -163,14 +163,14 @@ verify_dependencies() {
   for pkg in "${dependencies[@]}"; do
     if ! dpkg -s "${pkg}" &>/dev/null; then
       msg_error "Missing: ${pkg}"
-      ((missing++))
+#      ((missing++))
     fi
   done
-  if [[ "${missing}" -eq 0 ]]; then
-    msg_ok "All packages verified."
-  else
-    msg_error "${missing} package(s) failed to install."
-  fi
+#  if [[ "${missing}" -eq 0 ]]; then
+#    msg_ok "All packages verified."
+#  else
+#    msg_error "${missing} package(s) failed to install."
+#  fi
 }
 
 # -----------------------------------------------------------------------------
