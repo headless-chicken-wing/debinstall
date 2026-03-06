@@ -123,8 +123,8 @@ os_check() {
   fi
 
   if [[ "${VERSION_CODENAME}" != "trixie" ]]; then
-    msg_error "This script is intended for Debian Trixie. Detected: ${PRETTY_NAME}. Exiting."; elif
-	[[ "${ID_LIKE}" != "*debian*" ]]; then
+    msg_error "This script is intended for Debian Trixie. Detected: ${PRETTY_NAME}. Exiting."
+   elif	[[ "${ID_LIKE}" != "*debian*" ]]; then
     msg_error "This script is intended for Debian systems. Detected: ${PRETTY_NAME}. Exiting."
     exit 1
   fi
