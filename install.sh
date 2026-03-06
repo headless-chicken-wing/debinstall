@@ -139,7 +139,7 @@ get_updates() {
 
 get_upgrades() {
   msg_info "Installing upgrades — this may take a while..."
-  apt-get upgrade -yy &>/dev/null
+  apt-get upgrade -yy &>/dev/null || echo "Error: $?"
   msg_ok "System upgraded."
 }
 
