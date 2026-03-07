@@ -105,6 +105,12 @@ dependencies=(
 )
 
 # -----------------------------------------------------------------------------
+# Target user globals (set by get_users)
+# -----------------------------------------------------------------------------
+TARGET_USER=""
+TARGET_HOME=""
+
+# -----------------------------------------------------------------------------
 # Checks
 # -----------------------------------------------------------------------------
 root_check() {
@@ -123,9 +129,42 @@ os_check() {
   fi
 
   if ! command -v apt &>/dev/null; then
-    msg_error "This script is intended for Debian Trixie. Detected: ${PRETTY_NAME}. Exiting."
+    msg_error "This script is intended for Debian based Linux installations. Detected: ${PRETTY_NAME}. Exiting."
     exit 1
   fi
+}
+
+# -----------------------------------------------------------------------------
+# User selection
+# -----------------------------------------------------------------------------
+get_users() {
+  local users=()
+
+  # Always include root
+  users+=("root")
+
+  # Add any users found in /home
+  for dir in /home/*/; do
+    [[ -d "${dir}" ]] && users+=("$(basename "${dir}")")
+  done
+
+  msg_info "Select the user to configure:"
+  echo
+
+  select choice in "${users[@]}"; do
+    if [[ -n "${choice}" ]]; then
+      TARGET_USER="${choice}"
+      if [[ "${choice}" == "root" ]]; then
+        TARGET_HOME="/root"
+      else
+        TARGET_HOME="/home/${choice}"
+      fi
+      msg_ok "Selected user: ${TARGET_USER} (${TARGET_HOME})"
+      break
+    else
+      msg_error "Invalid selection. Please enter a number from the list."
+    fi
+  done </dev/tty
 }
 
 # -----------------------------------------------------------------------------
@@ -179,9 +218,9 @@ verify_dependencies() {
 create_dirs() {
   msg_info "Creating user directories..."
   local dirs=(
-    "${HOME}/.config/bashrc.d"
-    "${HOME}/.local/bin"
-    "${HOME}/.local/functions"
+    "${TARGET_HOME}/.config/bashrc.d"
+    "${TARGET_HOME}/.local/bin"
+    "${TARGET_HOME}/.local/functions"
   )
   for dir in "${dirs[@]}"; do
     if [[ ! -d "${dir}" ]]; then
@@ -205,15 +244,15 @@ download_files() {
   msg_ok "Repo downloaded and extracted."
 
   msg_info "Copying bashrc.d files..."
-  cp -r "${TMP_DIR}/debinstall-main/bashrc.d/." "${HOME}/.config/bashrc.d/"
+  cp -r "${TMP_DIR}/debinstall-main/bashrc.d/." "${TARGET_HOME}/.config/bashrc.d/"
   msg_ok "bashrc.d files in place."
 
   msg_info "Copying bin scripts..."
-  cp -r "${TMP_DIR}/debinstall-main/bin/." "${HOME}/.local/bin/"
+  cp -r "${TMP_DIR}/debinstall-main/bin/." "${TARGET_HOME}/.local/bin/"
   msg_ok "bin scripts in place."
 
   msg_info "Copying functions..."
-  cp -r "${TMP_DIR}/debinstall-main/functions/." "${HOME}/.local/functions/"
+  cp -r "${TMP_DIR}/debinstall-main/functions/." "${TARGET_HOME}/.local/functions/"
   msg_ok "functions in place."
 
   msg_info "Cleaning up temp files..."
@@ -225,9 +264,15 @@ download_files() {
 # Permissions
 # -----------------------------------------------------------------------------
 set_permissions() {
-  msg_info "Setting executable permissions on ~/.local/bin..."
-  chmod +x "${HOME}"/.local/bin/*
+  msg_info "Setting executable permissions on ${TARGET_HOME}/.local/bin..."
+  chmod +x "${TARGET_HOME}"/.local/bin/*
   msg_ok "Permissions set."
+
+  msg_info "Setting ownership of files to ${TARGET_USER}..."
+  chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.config/bashrc.d"
+  chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/bin"
+  chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/functions"
+  msg_ok "Ownership set to ${TARGET_USER}."
 }
 
 # -----------------------------------------------------------------------------
@@ -255,14 +300,15 @@ summary() {
   msg_ok " Setup complete!"
   msg_ok "======================================"
   echo
-  msg_info "Directories configured:"
-  msg_info "  ~/.config/bashrc.d"
-  msg_info "  ~/.local/bin"
-  msg_info "  ~/.local/functions"
+  msg_info "User configured: ${TARGET_USER}"
+  msg_info "Directories:"
+  msg_info "  ${TARGET_HOME}/.config/bashrc.d"
+  msg_info "  ${TARGET_HOME}/.local/bin"
+  msg_info "  ${TARGET_HOME}/.local/functions"
   echo
   msg_info "Next steps:"
-  msg_info "  - Source your bashrc: source ~/.bashrc"
-  msg_info "  - Verify your PATH includes ~/.local/bin"
+  msg_info "  - Source your bashrc: source ${TARGET_HOME}/.bashrc"
+  msg_info "  - Verify your PATH includes ${TARGET_HOME}/.local/bin"
   echo
 }
 
@@ -279,7 +325,7 @@ msg_info "Welcome to the setup utility for ${PRETTY_NAME}"
 echo
 
 read -rp "  This script will configure a new user environment. Start now? [y/N]: " start_answer </dev/tty
-#start_answer="${start_answer,,}"
+start_answer="${start_answer,,}"
 echo
 
 case "${start_answer}" in
@@ -288,6 +334,8 @@ case "${start_answer}" in
   *) msg_error "Invalid response: '${start_answer}'. Exiting."; exit 1 ;;
 esac
 
+echo
+get_users
 echo
 get_updates
 get_upgrades
