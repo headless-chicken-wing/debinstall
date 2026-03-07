@@ -92,8 +92,12 @@ dependencies=(
   'ncdu'
   'neofetch'
   'nmap'
+  'openssh-client'
+  'openssh-server'
+  'openssh-sftp-server'
   'parted'
   'ripgrep'
+  'ssh'
   'tcpdump'
   'tealdeer'
   'tldr'
@@ -346,5 +350,5 @@ download_files
 set_permissions
 create_symlinks
 summary
-
+[[ command -v fastfetch &>/dev/null && fastfetch || neofetch ]]
 exit 0
