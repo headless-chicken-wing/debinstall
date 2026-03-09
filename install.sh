@@ -282,18 +282,21 @@ create_symlinks() {
   # .bashrc
   if [[ -e "${TARGET_HOME}/.config/bashrc.d/.bashrc" ]]; then
     ln -s "${TARGET_HOME}/.config/bashrc.d/.bashrc" "${TARGET_HOME}/.bashrc" || didrun
+    chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.bashrc"
     msg_ok "Symlinked: .bashrc"
   fi
 
   # .profile
   if [[ -e "${TARGET_HOME}/.config/bashrc.d/.bash_profile" ]]; then
     ln -s "${TARGET_HOME}/.config/bashrc.d/.bash_profile" "${TARGET_HOME}/.profile" || didrun
+    chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.profile"
     msg_ok "Symlinked: .profile"
   fi
 
   # .nanorc
   if [[ -e "${TARGET_HOME}/.local/lib/env/.nanorc" ]]; then
     ln -s "${TARGET_HOME}/.local/lib/env/.nanorc" "${TARGET_HOME}/.nanorc" || didrun
+    chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.nanorc"
     msg_ok "Symlinked: .nanorc"
   fi
 
@@ -398,5 +401,8 @@ create_dirs
 download_files
 set_permissions
 create_symlinks
+chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.bashrc"
+chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.profile"
+chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.nanorc"
 summary
 msg_ok "All done!" && exit 0
