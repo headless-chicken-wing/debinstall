@@ -1,0 +1,17 @@
+#!/bin/bash
+#wan_ip="$(curl -sS https://ident.me/all)"
+#lan_ip="$(ip -c -br -p -f inet addr show dev enp1s0 | cut --delimiter=" "  --fields=25)"
+wan_ip="$(sudo inxi -FGi | rg --color=always "WAN IP:" | cut --delimiter=" "  --fields=1,2,3,4,5)"
+lan_ip="$(sudo inxi -FGi | rg --color=always "IP v4" | cut --delimiter=" "  --fields=1,2,3,4,5)"
+name="$(inxi -S | rg --color=always "Host:" | cut --delimiter=" " --fields=1,2,3,4)"
+domain="$(dnsdomainname)"
+tracks="$(curl -sS https://ident.me/json)"
+
+
+
+echo "$name" | bat -P --plain -l YAML
+echo "$lan_ip" | bat -P --plain -l YAML
+echo "$wan_ip" | bat -P --plain -l YAML
+echo "Which returns the following personal information about your location and service provider:" | bat -P --plain -l YAML
+echo ""$tracks"" | bat -P --plain -l JSON | jq '.'
+#cut --delimiter= --fields=1,2,3,4

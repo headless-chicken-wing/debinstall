@@ -1,0 +1,59 @@
+127.0.0.1	localhost
+#127.0.1.1	set per host
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+# The following lines are desirable for IPv6 capable hosts
+
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
+#192.168.1.1 dd-wrt.home.arpa dd-wrt
+192.168.1.2 pve.home.arpa pve
+192.168.1.3 netbox.abigcloud.com netbox
+#192.168.1.4 abigcloud.home.arpa abigcloud.local
+192.168.1.145 debian.home.arpa debian
+192.168.1.6 asus.home.arpa asus
+192.168.1.7 hplaptop.home.arpa hplaptop 
+192.168.1.8 pop-os.home.arpa pop-os
+#192.168.1.9 nextcloud.home.arpa nextcloud www.abigcloud.com
+#192.168.1.10 openwrt-ap.home.arpa openwrt-ap
+#192.168.1.14 setup.home.arpa setup
+192.168.1.20 oldiPhone.home.arpa oldiPhone
+#192.168.1.22 karleigh-iphone.home.arpa karleigh-iphone
+192.168.1.23 iPhone.home.arpa iPhone
+#192.168.1.24 sarahs-iphone-3.home.arpa sarahs-iphone-3
+#192.168.1.31 lgwebostv.home.arpa lgwebostv
+#192.168.1.32 bedroomtv.home.arpa bedroomtv
+#192.168.1.33 chromecast.home.arpa chromecast
+192.168.1.35 rokupremiere.home.arpa rokupremiere
+#192.168.1.36 karson-tv.home.arpa karson-tv
+#192.168.1.37 xbox.home.arpa xbox
+192.168.1.40 portable-cam.home.arpa portable-cam
+192.168.1.41 driveway-cam.home.arpa driveway-cam
+192.168.1.42 backyard-cam.home.arpa backyard-cam
+#192.168.1.43 ringdoorbell-cam.home.arpa ringdoorbell-cam
+#192.168.1.44 ring-chime.home.arpa ring-chime
+#192.168.1.50 cooplight.home.arpa cooplight
+#192.168.1.51 thermostat.home.arpa thermostat
+#192.168.1.52 garagelights.home.arpa garagelights
+#192.168.1.53 garagelamp.home.arpa garagelamp
+#192.168.1.54 backfloodlights.home.arpa backfloodlights
+#192.168.1.55 kitchenbulb.home.arpa kitchenbulb
+#192.168.1.56 porchlight.home.arpa porchlight
+#192.168.1.57 couchbulb.home.arpa couchbulb
+#192.168.1.58 deskbulb.home.arpa deskbulb
+#192.168.1.59 shoplight.home.arpa shoplight
+#192.168.1.147 tictoc.home.arpa tictoc.app tictoc
+#192.168.1.251 npm.home.arpa npm
+192.168.1.252 managed-switch.home.arpa managed-switch
+#192.168.1.253 openwrt.home.arpa openwrt 
+192.168.1.254 gateway.home.arpa gateway
+192.168.3.1 ft-netgear.home.arpa ft-netgear

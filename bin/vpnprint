@@ -1,0 +1,76 @@
+#!/usr/bin/bash
+
+set -eu 
+
+# This function sets various color variables using ANSI escape codes for formatting text in the terminal.
+color() {
+  YW=$(echo "\033[33m")
+  BL=$(echo "\033[36m")
+  RD=$(echo "\033[01;31m")
+  BGN=$(echo "\033[4;92m")
+  GN=$(echo "\033[1;92m")
+  DGN=$(echo "\033[32m")
+  CL=$(echo "\033[m")
+  CM="${GN}✓${CL}"
+  CROSS="${RD}✗${CL}"
+  BFR="\\r\\033[K"
+  HOLD=" "
+}
+
+# This function displays a spinner.
+spinner() {
+    local chars="/-\|"
+    local spin_i=0
+    printf "\e[?25l"
+    while true; do
+        printf "\r \e[36m%s\e[0m" "${chars:spin_i++%${#chars}:1}"
+        sleep 0.1
+    done
+}
+
+
+# This function displays an informational message with a yellow color.
+msg_info() {
+  printf "\e[?25h"
+  local msg="$1"
+  echo -e " ${YW}${msg}   "
+}
+
+shell_check() {
+  if [[ "$(basename "$SHELL")" = "bash" ]]; then
+    clear
+    msg_info "Your default shell is currently not set to Bash. To use these scripts, please switch to the Bash shell."
+    echo -e "\nExiting..."
+    sleep 2
+    exit
+  fi
+}
+
+
+# This function displays a success message with a green color.
+msg_ok() {
+  printf "\e[?25h"
+  local msg="$1"
+  echo -e "${BFR} ${CM} ${GN}${msg}${CL}"
+}
+
+
+
+check_vpn() {
+  if [[ $(curl -s https://am.i.mullvad.net/json | jq .mullvad_exit_ip) = true ]]; then
+  msg_ok "You are connected to Mullvad VPN"; else
+  msg_info "You are NOT Mullvad!!!"
+  exit
+ fi
+}
+
+
+
+
+
+color
+check_vpn
+
+#if [[ $(curl -s https://am.i.mullvad.net/json | jq .mullvad_exit_ip) = true ]]; then echo TRUE; else echo FALSE; fi
+
+

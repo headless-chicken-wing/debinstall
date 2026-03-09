@@ -1,0 +1,70 @@
+Host tp-switch
+  Hostname 192.168.1.252
+  Port 22
+  User admin
+
+Host ft-netgear
+  Hostname 192.168.3.1
+  Port 22
+  User root
+# Password Q5Wvk!J946*N@p^J3b
+
+Host pve
+  Hostname 192.168.1.2
+  Port 22
+  User root
+
+Host openwrt-ap
+  Hostname 192.168.1.10
+  Port 2222
+  User root
+
+Host debian
+   Hostname debian.home.arpa
+   Port 22
+   User brandon
+
+host tictoc
+   Hostname 192.168.1.147
+   Port 22
+   User bsmith
+
+host netbox
+   Hostname 192.168.1.3
+   Port 22
+   User brandon
+
+host abigcloud
+   Hostname 192.168.1.4
+   Port 22
+   User brandon
+
+host iPhone
+   Hostname 192.168.1.23
+   Port 22
+   User root
+
+host nixos
+   Hostname 192.168.1.48
+   Port 22
+   User brandon
+
+host oldiPhone
+   Hostname 192.168.1.20
+   Port 22
+   User root
+
+host pop
+   Hostname 192.168.1.8
+   Port 22
+   User sarah
+
+host ollama
+   Hostname 192.168.1.6
+   Port 22
+   User brandon
+
+host hplaptop
+   Hostname 192.168.1.7
+   Port 22
+   user brandon

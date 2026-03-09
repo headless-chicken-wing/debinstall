@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+bat_themes() {
+
+local themes=(
+'1337'
+'ansi'
+'base16'
+'base16-256'
+'Coldark-Cold'
+'Coldark-Dark'
+'DarkNeon'
+'Dracula'
+'GitHub'
+'gruvbox-dark'
+'gruvbox-light'
+'Monokai Extended'
+'Monokai Extended Bright'
+'Monokai Extended Light'
+'Monokai Extended Origin'
+'Nord'
+'OneHalfDark'
+'OneHalfLight'
+'Solarized (dark)'
+'Solarized (light)'
+'Sublime Snazzy'
+'TwoDark'
+'Visual Studio Dark+'
+'zenburn'
+)
+
+msg_info "Enter Number corresponding to the theme you wish to try: "
+
+select item in "${themes[@]}"; do
+   local my_theme="${item}"
+   [[ -n "${my_theme}" ]] && break
+done < /dev/tty
+
+export BAT_THEME=$my_theme
+
+unset item
+}
+
+bat_themes

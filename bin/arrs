@@ -1,0 +1,28 @@
+#!/usr/bin/bash
+
+#Arr* Service    Port Number
+ 
+
+#sabnzbd=
+sabnzbd=192.168.1.145:8080
+#readarr=192.168.1.145:8787
+readarr=
+#portainer=
+portainer=192.168.1.145:9000
+#jellyfin=
+jellyfin=192.168.1.145:8096
+bazarr=
+#bazarr=192.168.1.145:6767
+#radarr=
+radarr=192.168.1.145:7878
+#sonarr=
+sonarr=192.168.1.145:8989
+#prowlarr=192.168.1.145:9696
+prowlarr=
+#qbittorrent=
+qbittorrent=192.168.1.145:8081
+#lidarr=
+lidarr=192.168.1.145:8686
+
+exec /usr/bin/firefox --new-instance $readarr $portainer $jellyfin $bazarr $radarr $sonarr $prowlarr $qbittorrent $lidarr
+ 

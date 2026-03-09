@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+#Source local environment functions from web
+#source /dev/stdin <<<$(curl -fsSL https://raw.githubusercontent.com/headless-chicken-wing/debinstall/refs/heads/main/functions/functions.func)
+
+# Display the DebInstall logo in the terminal using green color.
+# Used by various presentation scripts to show branding.
+
+echo -e "\033[01;32m"
+/usr/bin/cat <../env/logo.txt
+echo -e "\033[0m"

@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+# Homelab Exposure Audit Script (Manual Verification Style)
+# WARNING: This does NOT change anything. You must read and act.
+
+DOMAIN="$1"
+if [[ -z "$DOMAIN" ]]; then
+  echo "Usage: $0 your.domain.tld"
+  exit 1
+fi
+
+BANNER() {
+  echo -e "\n==== $1 ===="
+}
+
+BANNER "1. NMAP Scan (External Exposure)"
+nmap -Pn -T4 "$DOMAIN"
+
+echo "\n[*] Review the open ports. Only your intended public services should appear."
+
+BANNER "2. DNS Resolution Check"
+dig "$DOMAIN" +short
+dig cname "$DOMAIN"
+
+echo "\n[*] Make sure A/CNAME records match your intended IPs/hostnames."
+
+BANNER "3. TLS/SSL Cert Details"
+echo | openssl s_client -servername "$DOMAIN" -connect "$DOMAIN:443" 2>/dev/null | openssl x509 -noout -subject -issuer -dates
+
+BANNER "4. HTTP Header Inspection"
+curl -sI "https://$DOMAIN"
+
+echo "\n[*] Look for security headers like Strict-Transport-Security, X-Frame-Options, etc."
+
+BANNER "5. Firewall Rules (ufw/nftables)"
+if command -v ufw &>/dev/null; then
+  ufw status verbose
+else
+  echo "[*] ufw not detected, skipping. Check nftables manually if in use."
+fi
+
+BANNER "6. fail2ban Status"
+if command -v fail2ban-client &>/dev/null; then
+  fail2ban-client status
+else
+  echo "[*] fail2ban not installed. Consider adding it."
+fi
+
+BANNER "7. Reverse Proxy Sanity (Manual Review)"
+echo "[*] Confirm your reverse proxy (nginx/traefik) configs include:"
+echo "  - HTTPS only"
+echo "  - Auth required for sensitive apps"
+echo "  - No raw app ports exposed"
+echo "  - Security headers injected"
+
+BANNER "8. Cloudflare Checks (Manual)"
+echo "[*] Log into Cloudflare and verify:"
+echo "  - Orange cloud (proxying) is enabled"
+echo "  - DNS entries accurate"
+echo "  - IP Access Rules or Zero Trust rules applied"
+echo "  - Rate limiting on critical endpoints"
+
+BANNER "9. Data Isolation (Manual)"
+echo "[*] Make sure:"
+echo "  - Media/personal data lives on separate mounts or containers"
+echo "  - Backups are not publicly accessible"
+echo "  - No test containers share data volumes with production"
+
+BANNER "10. Custom Sanity Checks (Add Your Own)"
+echo "[*] TODO: Add checks here for things unique to your setup."
+echo "  - eg: nextcloud.sh status"
+echo "  - docker ps | grep xyz"
+
+echo -e "\n✅ Done. Review above output and harden as needed."
+exit 0

@@ -1,0 +1,59 @@
+#!/bin/env bash
+set -e
+
+YW="\033[33m"
+BL="\033[36m"
+RD="\033[01;31m"
+BGN="\033[4;92m"
+GN="\033[1;92m"
+DGN="\033[32m"
+CL="\033[m"
+CM="${GN}✓${CL}"
+CROSS="${RD}✗${CL}"
+BFR="\\r\\033[K"
+
+msg_info() {
+  local msg="$1"
+  echo -e "${YW}${msg}${CL}"
+}
+
+msg_ok() {
+  local msg="$1"
+  echo -e "${BFR} ${CM} ${GN}${msg}${CL}"
+}
+
+msg_error() {
+  local msg="$1"
+  echo -e "${BFR} ${CROSS} ${RD}${msg}${CL}"
+}
+
+didrun()
+ {
+   local code="$?"
+   if [[ ${code} -ne "0" ]]; then
+   msg_error "Exit error ${code}"; elif
+   [[ ${code} -eq "0" ]]; then
+   msg_ok "Exit Ok"
+   fi
+ }
+
+# Add the named packages to the system if they're missing. Returns false if it couldn't be done.
+get_updates()
+  {
+     msg_info "Getting repository updates..." && sleep 4
+     apt-get update &> /dev/null && msg_ok "Apt repositories have been updated..."
+  }
+get_updates
+if ./debian-pkg-missing "$@"; then
+  sudo apt-get install -yy &>/dev/null "$@" && msg_ok "Installed "$@"" || msg_error "Failed Installing "$@""
+fi
+
+for pkg in "$@"; do
+  # Secondary check to handle states where apt doesn't actually register an error
+  if ! apt list --installed "$pkg" &>/dev/null; then
+    echo -e "\033[31mError: Package '$pkg' did not install\033[0m" >&2
+    exit 1
+  fi
+done
+
+exit 0

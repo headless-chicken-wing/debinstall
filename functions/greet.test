@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+greet() {
+	local name=$1
+	local msg=$2
+
+	echo foo >&2
+
+	echo -n "hello $1"
+
+	if [[ -n $msg ]]; then
+		echo " ($msg)"
+	fi
+
+	echo
+	return 5
+}
+
+S=$(greet var1 2>&1)
+code=$?
+
+echo "stdout: $S"
+
