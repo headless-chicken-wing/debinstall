@@ -1,0 +1,1 @@
+/home/bri/.config/bashrc.d/.bashrc /home/bri/.bashrc

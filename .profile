@@ -1,0 +1,1 @@
+/home/bri/.config/bashrc.d/.bash_profile /home/bri/.profile

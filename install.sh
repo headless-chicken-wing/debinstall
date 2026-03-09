@@ -313,6 +313,7 @@ set_permissions() {
   msg_ok "Permissions set."
 
   msg_info "Setting ownership of files to ${TARGET_USER}..."
+  chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.config/"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.config/bashrc.d"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/bin"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/lib/functions"
