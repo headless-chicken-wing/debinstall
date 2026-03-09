@@ -150,7 +150,7 @@ get_users() {
 get_updates() {
   msg_info "Updating apt repositories..."
   sleep 2
-  apt-get update &>/dev/null || didrun && exit
+  apt-get update &>/dev/null
   msg_ok "Repositories updated."
 }
 
