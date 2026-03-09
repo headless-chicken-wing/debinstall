@@ -4,20 +4,22 @@
 # If not running interactively, don't do anything
 [[ $- == *i* ]] || return
 
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#xterm*|rxvt*)
-#    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-#    ;;
-#*)
-#    ;;
-#esac
-
 #Set user's prompt
 PS1="\[\e[38;5;201m\]\u\[\e[38;5;13m\]@\[\e[38;5;51m\]\h\[\e[38;5;10m\] \w\[\e[38;5;13m\] $:\[\e[0m\] "
 
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+    #PS1=echo -ne \033]0;${USER}@${HOSTNAME}: ${PWD}\007
+    ;;
+*)
+    ;;
+esac
+
+
 # Require prompt write to history after every command and append to the history file; don't overwrite it
-PROMPT_COMMAND="history -a"
+PROMPT_COMMAND='history -a'
 
 
 
@@ -62,14 +64,6 @@ if
   source ~/.config/bashrc.d/.bash_aliases; else
   echo "No aliases found in $USER's $HOME"
 fi
-
-#if [[ ${USER} = "brandon" ]]; then
-#  source /usr/share/bash-completion/bash_completion || echo "Couldn't source completions!"
-#   echo "bash_completion enabled"; elif
-#    [[ ${UID} -eq "0" ]]; then
-#   source /usr/share/bash-completion/bash_completion || echo "Couldn't source root's completions"; else
-#  echo "bash_completion is unsourced!"
-#fi
 
 #Append this login's details to all_logins.log
 if
