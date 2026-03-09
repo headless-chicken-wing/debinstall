@@ -280,26 +280,26 @@ create_symlinks() {
   fi
 
   # .bashrc
-  if [[ -a "${TARGET_HOME}/.config/bashrc.d/.bashrc" ]]; then
-    ln -s "${TARGET_HOME}/.config/bashrc.d/.bashrc ${TARGET_HOME}/.bashrc" || didrun
+  if [[ -e "${TARGET_HOME}/.config/bashrc.d/.bashrc" ]]; then
+    ln -s "${TARGET_HOME}/.config/bashrc.d/.bashrc" "${TARGET_HOME}/.bashrc" || didrun
     msg_ok "Symlinked: .bashrc"
   fi
 
   # .profile
-  if [[ -a "${TARGET_HOME}/.config/bashrc.d/.bash_profile" ]]; then
-    ln -s "${TARGET_HOME}/.config/bashrc.d/.bash_profile ${TARGET_HOME}/.profile" || didrun
+  if [[ -e "${TARGET_HOME}/.config/bashrc.d/.bash_profile" ]]; then
+    ln -s "${TARGET_HOME}/.config/bashrc.d/.bash_profile" "${TARGET_HOME}/.profile" || didrun
     msg_ok "Symlinked: .profile"
   fi
 
   # .nanorc
-  if [[ -a "${TARGET_HOME}/.local/lib/env/.nanorc" ]]; then
-    ln -s "${TARGET_HOME}/.local/lib/env/.nanorc ${TARGET_HOME}/.nanorc" || didrun
+  if [[ -e "${TARGET_HOME}/.local/lib/env/.nanorc" ]]; then
+    ln -s "${TARGET_HOME}/.local/lib/env/.nanorc" "${TARGET_HOME}/.nanorc" || didrun
     msg_ok "Symlinked: .nanorc"
   fi
 
   # ssh_config
-  if [[ -a "${TARGET_HOME}/.local/lib/env/ssh_config" ]]; then
-    ln -s "${TARGET_HOME}/.local/lib/env/ssh_config ${TARGET_HOME}/.ssh/config" || didrun
+  if [[ -e "${TARGET_HOME}/.local/lib/env/ssh_config" ]]; then
+    ln -s "${TARGET_HOME}/.local/lib/env/ssh_config" "${TARGET_HOME}/.ssh/config" || didrun
     msg_ok "Symlinked: ssh_config"
   fi
 }
@@ -399,5 +399,4 @@ download_files
 set_permissions
 create_symlinks
 summary
-[[ command -v fastfetch &>/dev/null && fastfetch || neofetch ]]
-exit 0
+msg_ok "All done!" && exit 0
