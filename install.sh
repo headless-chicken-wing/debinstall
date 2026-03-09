@@ -245,9 +245,9 @@ download_files() {
   msg_ok "background images in place."
   sleep 2
   msg_info "Saving old user files to ~/.config/bashrc.d/oldrc..."
-  mv "${TARGET_HOME}/.bashrc ${TARGET_HOME}/.config/bashrc.d/oldrc/"
+  mv "${TARGET_HOME}/.bashrc ${TARGET_HOME}/.config/bashrc.d/oldrc/.bashrc.bak"
   msg_ok "old bashrc file saved to oldrc...."
-  mv "${TARGET_HOME}/.profile ${TARGET_HOME}/.config/bashrc.d/oldrc/"
+  mv "${TARGET_HOME}/.profile ${TARGET_HOME}/.config/bashrc.d/oldrc/.profile.bak"
   msg_ok "old profile file saved to oldrc...."
   sleep 2
   msg_info "Cleaning up temp files..."
