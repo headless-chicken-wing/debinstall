@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-say="This bashingly glorious terminal has been brought to you by:"
-  echo "$say" "$USER"@"$HOSTNAME on "$(date)"" | toilet  -f term --gay
-  #echo $(date) | toilet -F border -f term --gay
-unset say

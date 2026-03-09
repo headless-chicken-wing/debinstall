@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-#Script to automate mounting sshfs quickly and easily
-
-#sshfs -o follow_symlinks debian:/data/ /srv/shared -C
-
-sshfs -o follow_symlinks -o allow_other -o default_permissions debian:/data/ /srv/shared -C

@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-/usr/bin/ffplay  -x 1200 -y 800 -alwaysontop -noborder -infbuf -framedrop 'rtsp://admin:adminadmin@192.168.1.42/live' &>/home/brandon/rtsp.log &
-
-exit 0

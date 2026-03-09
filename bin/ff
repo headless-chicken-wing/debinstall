@@ -1,5 +1,0 @@
-#!/usr/bin/bash
-
-PAGE="$1"
-
-/usr/bin/firefox --private-window $PAGE

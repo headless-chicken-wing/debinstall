@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-/usr/bin/gnome-terminal &>/dev/null &
-
-exit

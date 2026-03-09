@@ -1,6 +1,0 @@
-#! /usr/bin/bash
-
-STATE=$(/usr/bin/systemctl is-system-running)
-
-
-echo $STATE
