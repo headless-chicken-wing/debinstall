@@ -1,6 +1,6 @@
 # Debian Trixie — New User Setup
 
-## Scripts for automating the setup and configuration for a new Debian based linux installation
+## Scripts for automating the setup for a new **Debian** based linux installation
 
 To use, run the following command from the terminal of any Debian based Linux installation:
 
