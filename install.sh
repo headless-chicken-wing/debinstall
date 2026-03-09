@@ -319,6 +319,7 @@ set_permissions() {
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.config/"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.config/bashrc.d"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/bin"
+  chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/lib/functions"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/lib/env"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/share/backgrounds"
