@@ -318,9 +318,9 @@ set_permissions() {
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/lib/functions"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/lib/env"
   chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.local/share/backgrounds"
-  chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.bashrc"
-  chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.profile"
-  chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.nanorc"
+  #chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.bashrc"
+  #chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.profile"
+  #chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.nanorc"
   msg_ok "Ownership set to ${TARGET_USER}."
 }
 
