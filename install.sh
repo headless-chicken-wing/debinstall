@@ -201,7 +201,7 @@ create_dirs() {
     "${TARGET_HOME}/.local/lib/functions"
     "${TARGET_HOME}/.local/lib/env"
     "${TARGET_HOME}/.local/share/backgrounds"
-    "${TARGET_HOME}/.config/.bashrc.d/oldrc"
+    "${TARGET_HOME}/.config/bashrc.d/oldrc"
   )
   for dir in "${dirs[@]}"; do
     if [[ ! -d "${dir}" ]]; then
