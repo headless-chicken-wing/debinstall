@@ -301,10 +301,10 @@ create_symlinks() {
   fi
 
   # ssh_config
-  if [[ -e "${TARGET_HOME}/.local/lib/env/ssh_config" ]]; then
-    ln -s "${TARGET_HOME}/.local/lib/env/ssh_config" "${TARGET_HOME}/.ssh/config" || didrun
-    chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.ssh/"
+  if [[ -d "${TARGET_HOME}/.ssh/" ]] && [[ ! -f "${TARGET_HOME}/.ssh/config" ]]; then
+    ln -s "${TARGET_HOME}/.local/lib/env/ssh_config" "${TARGET_HOME}/.ssh/config" 
     msg_ok "Symlinked: ssh_config"
+    chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.ssh/"
   fi
 }
 
@@ -395,10 +395,21 @@ msg_info "Repositories updated!"
 get_upgrades
 sleep 2
 msg_info "All packages upgraded to latest version...."
-install_dependencies
-verify_dependencies
-msg_info "All system dependencies have been installed...."
+echo ""
+msg_info "Install base dependency packages from apt?"
+msg_info "    answer yes if running on a newly installed system, or no if only configuring a new user on an established Debian system."
+read -rp "Install dependencies now? [y/N]: " install_answer </dev/tty
+install_answer="${install_answer,,}"
+echo
+
+case "${install_answer}" in
+  y|yes) msg_ok "Installing depencdencies..." && install_dependencies && msg_ok "All system dependencies have been installed...." && sleep 2 ;;
+  n|no|"") msg_info "Continuing without installing dependencies...." ;;
+  *) msg_error "Invalid response: Continuing without depencies...." ;;
+esac
 sleep 2
+#install_dependencies
+#verify_dependencies
 create_dirs
 download_files
 set_permissions
