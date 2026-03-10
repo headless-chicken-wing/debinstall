@@ -63,8 +63,8 @@ didrun()
  {
    local code="$?"
    if [[ ${code} -ne "0" ]]; then 
-   msg_error "ERROR\! ${code}"; elif
+   msg_error "ERROR: ${code}"; elif
    [[ ${code} -eq "0" ]]; then 
-   msg_ok "OK\!"
+   msg_ok "GOOD: ${code}"
    fi
  }

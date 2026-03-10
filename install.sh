@@ -303,6 +303,7 @@ create_symlinks() {
   # ssh_config
   if [[ -e "${TARGET_HOME}/.local/lib/env/ssh_config" ]]; then
     ln -s "${TARGET_HOME}/.local/lib/env/ssh_config" "${TARGET_HOME}/.ssh/config" || didrun
+    chown -R "${TARGET_USER}":"${TARGET_USER}" "${TARGET_HOME}/.ssh/"
     msg_ok "Symlinked: ssh_config"
   fi
 }
